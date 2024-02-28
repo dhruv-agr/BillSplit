@@ -9,6 +9,7 @@ public class BillsplitApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BillsplitApplication.class, args);
 		System.out.println("Hurray!!!");
+//		System.out.println($JWT_TOKEN);
 	}
 
 }

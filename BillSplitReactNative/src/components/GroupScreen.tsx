@@ -2,32 +2,20 @@ import React, {useState,useEffect} from 'react';
 import {FlatList,Alert, Modal, StyleSheet, Text, Pressable, View,Button} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GroupsListItem from './GroupsListItem';
-import type {Props} from './Types';
+import type {Props,GroupsType} from './Types';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Config from "react-native-config";
 
 
+const HOST_IP = Config.HOST_IP;
 
-const styles = StyleSheet.create({
-  
-  list:{
-    marginHorizontal:10
-
-  }
-});
-// const mydata = ()=>{
-//   const response = fetch('localhost:8080/groups');
-//   console.log(response);
-// }
-type GroupsType = {
-  user_group_name: string
-  user_group_id: number
-}
+console.log('host ip is : '+HOST_IP)
 
 let listOfGroupsRes:Array<GroupsType>;
 async function fetchGroups(){
   try {
     const response = await fetch(
-      'http://10.0.2.2:8080/groups',
+      `${HOST_IP}groups`,
     );
     listOfGroupsRes = await response.json();
     console.log(listOfGroupsRes);
@@ -36,17 +24,17 @@ async function fetchGroups(){
     }
     return listOfGroupsRes;
   } catch (error) {
+    console.log("inside error while fetching groups ");
     console.error(error);
   }
 }
 
-fetchGroups();
 
 
 const GroupScreen = ({navigation}:Props) => {
   const [apiResponse, setApiResponse] = useState<GroupsType[]>([{user_group_name:'Loading',user_group_id:0}]);
   useEffect(() => {
-    fetchGroups().then((res) => setApiResponse(res !==undefined ? res : [])
+    fetchGroups().then((res) => console.log("Response is : " + res)//setApiResponse(res !==undefined ? res : [])
       
       
     );
@@ -70,5 +58,15 @@ const GroupScreen = ({navigation}:Props) => {
     
   )
 }
+
+
+
+const styles = StyleSheet.create({
+  
+  list:{
+    marginHorizontal:10
+
+  }
+});
 
 export default GroupScreen;

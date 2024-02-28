@@ -28,7 +28,7 @@ const GroupStackScreen = () =>{
     }}
     
       >
-      <GroupStack.Screen name="GroupScreen" component={GroupScreen} />
+      <GroupStack.Screen name="GroupScreen" component={GroupScreen} options={{title :'Groups'}} />
       <GroupStack.Screen name="GroupDetailsScreen" component={GroupDetailsScreen}  options={({route}) => ({
     title: route.params.groupName,
   })}/>
