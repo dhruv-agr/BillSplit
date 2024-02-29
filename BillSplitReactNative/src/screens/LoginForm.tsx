@@ -15,40 +15,8 @@ const userSchema = Yup.object({
   email: Yup.string().email('Email is not valid').required('Required'),
   password: Yup.string().min(7, 'Min of 7 characters').required('Required'),
 });
-const PasswordSchema = Yup.object().shape({
-  passwordLength: Yup.number()
-  .min(4, 'Should be min of 4 characters')
-  .max(16, 'Should be max of 16 characters')
-  .required('Length is required')
-  
-})
-// const HOST_IP = Config.HOST_IP;
-// let loginRes;
-// async function login(creds:any){
-//   try {
-//     console.log("login function called");
-    
-//     const response = await fetch(
-//       `${HOST_IP}authenticate`,{
-//         method: 'POST',
-//         headers: {
-//           "Content-Type": "application/json",
-//           // 'Content-Type': 'application/x-www-form-urlencoded',
-//         },
-//         body: JSON.stringify(creds), // body data type must match "Content-Type" header
-//       }
-//     );
-//     loginRes = await response.json();
-//     console.log(loginRes);
-//     if(loginRes === undefined){
-//       return 'undefined response received in login';
-//     }
-//     return loginRes;
-//   } catch (error) {
-//     console.log("inside error while fetching attempting login ");
-//     console.error(error);
-//   }
-// }
+
+
 const {authData, loading,signIn,signOut} = useContext(AuthContext);
 
 const LoginForm = () => {
@@ -60,7 +28,7 @@ const LoginForm = () => {
           validationSchema={userSchema}
           onSubmit={ values => {
             console.log(values);
-            // signIn(values.email,values.password);
+            signIn(values.email,values.password);
         
           }}
         >
@@ -124,15 +92,7 @@ const LoginForm = () => {
 
                 </TouchableOpacity>
                 
-                {/* <TouchableOpacity
-                  style={styles.secondaryBtn}
-                  onPress={ () => {
-                    handleReset();
-                    
-                  }}
-                >
-                  <Text style={styles.secondaryBtnTxt}>Reset</Text>
-                </TouchableOpacity> */}
+                
               </View>
             </View>
           )}

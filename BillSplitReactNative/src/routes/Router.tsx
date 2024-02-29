@@ -18,9 +18,9 @@ const MyTheme = {
 export const Router = () => {
   const logincontext = useContext(AuthContext);
 
-  if (logincontext.loading) {
-    return <Loading />;
-  }
+  // if (logincontext.loading) {
+  //   return <Loading />;
+  // }
   return (
     <NavigationContainer theme={MyTheme}>
       {logincontext.authData ? <AppStack /> : <AuthStack />}
