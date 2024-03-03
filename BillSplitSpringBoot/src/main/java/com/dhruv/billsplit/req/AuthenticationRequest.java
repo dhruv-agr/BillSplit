@@ -1,4 +1,4 @@
-package com.dhruv.billsplit;
+package com.dhruv.billsplit.req;
 
 import org.springframework.stereotype.Component;
 

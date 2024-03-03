@@ -2,8 +2,8 @@ package com.dhruv.billsplit.service;
 
 
 
-import com.dhruv.billsplit.AuthenticationRequest;
-import com.dhruv.billsplit.AuthenticationResponse;
+import com.dhruv.billsplit.req.AuthenticationRequest;
+import com.dhruv.billsplit.res.AuthenticationResponse;
 import com.dhruv.billsplit.RegisterRequest;
 import com.dhruv.billsplit.entities.Users;
 import com.dhruv.billsplit.entities.UserRepository;

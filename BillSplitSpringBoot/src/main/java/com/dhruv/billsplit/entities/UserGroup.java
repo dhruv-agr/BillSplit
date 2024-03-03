@@ -2,17 +2,34 @@ package com.dhruv.billsplit.entities;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class UserGroups {
+public class UserGroup {
 	@Id
+	@GeneratedValue( strategy= GenerationType.AUTO,
+			generator="native")
 	int user_group_id;
 	String user_group_name;
 	String created_by;
 	Timestamp creation_date;
+
+	@ManyToMany
+	List<Users> users;
+
+	@OneToMany(mappedBy = "userGroup")
+	List<Expenses> expenses;
+
+	public List<Users> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<Users> users) {
+		this.users = users;
+	}
+
 	public int getUser_group_id() {
 		return user_group_id;
 	}

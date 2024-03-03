@@ -1,4 +1,4 @@
-package com.dhruv.billsplit;
+package com.dhruv.billsplit.res;
 
 
 
