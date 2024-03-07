@@ -4,6 +4,7 @@ package com.dhruv.billsplit.entities;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,9 +17,10 @@ public class UserGroup {
 	String created_by;
 	Timestamp creation_date;
 
+	@JsonIgnore
 	@ManyToMany
 	List<Users> users;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "userGroup")
 	List<Expenses> expenses;
 

@@ -3,6 +3,12 @@ import Keychain from "react-native-keychain";
 
 import {AuthData, authService} from '../services/authService';
 
+import type {GroupsType} from '../components/Types';
+import Config from "react-native-config";
+
+
+const HOST_IP = Config.HOST_IP;
+
 type AuthContextData = {
   authData?: AuthData;
   loading: boolean;
@@ -27,22 +33,55 @@ const AuthProvider: React.FC<Props> = ({children}) => {
   useEffect(() => {
     //Every time the App is opened, this provider is rendered
     //and call de loadStorage function.
+   
     loadStorageData();
   }, []);
 
   async function loadStorageData(): Promise<void> {
     try {
       //Try get the data from Async Storage
+      console.log("inside load storage function");
       const credsObject = await Keychain.getGenericPassword();
       if (credsObject) {
         //If there are data, it's converted to an Object and the state is updated.
         const token: AuthData = credsObject;
-        setAuthData(token);
+        console.log("creds password is : " + credsObject.password);
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', "Bearer " +token.password);
+        fetchGroups(myHeaders).then((res) => {
+          console.log("Response status for check token is : " + res?.status);
+          if(res?.status !=403){
+            setAuthData(token);
+          }});//setApiResponse(res !==undefined ? res : [])
+        // console.log(ifValidRes);
+        
       }
     } catch (error) {
+      console.log("error while fetching groups: " +error);
     } finally {
       //loading finished
+      console.log("loading storage data finished");
       setLoading(false);
+    }
+  }
+
+  let listOfGroupsRes:Response;
+  async function fetchGroups(myheaders:any){
+    try {
+      console.log("Fetch groups for token check is called");
+      const response = await fetch(
+        `${HOST_IP}groups`,
+        {headers: myheaders}
+      );
+      listOfGroupsRes = await response;
+      // console.log(listOfGroupsRes);
+      if(listOfGroupsRes === undefined){
+        undefined;
+      }
+      return listOfGroupsRes;
+    } catch (error) {
+      console.log("inside error while fetching groups for check token");
+      console.error(error);
     }
   }
 
@@ -55,6 +94,8 @@ const AuthProvider: React.FC<Props> = ({children}) => {
         email,
         password
     );
+
+    console.log("token received after sign in is: " + token.access_token);
     
     let authData :AuthData ={
         password:token.access_token,
@@ -68,7 +109,7 @@ const AuthProvider: React.FC<Props> = ({children}) => {
     //Persist the data in the Async Storage
     //to be recovered in the next user session.
 
-    await Keychain.setGenericPassword(email, JSON.stringify(token));
+    await Keychain.setGenericPassword(email, token.access_token);
   };
 
 

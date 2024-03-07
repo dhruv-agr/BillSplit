@@ -15,8 +15,12 @@ const MyTheme = {
   },
 };
 
+console.log("Router is called");
+
 export const Router = () => {
   const logincontext = useContext(AuthContext);
+  console.log("loading of auth data is: " + logincontext.loading);
+  console.log("auth data is : " + logincontext.authData);
 
   // if (logincontext.loading) {
   //   return <Loading />;

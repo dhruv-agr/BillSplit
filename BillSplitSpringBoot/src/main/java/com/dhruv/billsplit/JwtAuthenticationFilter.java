@@ -1,10 +1,14 @@
 package com.dhruv.billsplit;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.dhruv.billsplit.entities.Users;
 import com.dhruv.billsplit.service.MyUserDetailsSevice;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -29,6 +33,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     MyUserDetailsSevice userDetailsService;
+    @Autowired
+    ObjectMapper mapper;
 
 //public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
 //	
@@ -58,7 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-    System.out.println("################################# jwt token found");
+    System.out.println("################################# jwt token found: " + authHeader);
     jwt = authHeader.substring(7);
     
     try {
@@ -88,6 +94,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     catch(ExpiredJwtException e) {
     	e.printStackTrace(System.out);
     	System.out.println("######################### Token is expired");
+        Map<String, Object> errorDetails = new HashMap<>();
+        errorDetails.put("message", "Invalid token");
+
+        response.setStatus(403);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        mapper.writeValue(response.getWriter(), errorDetails);
     }
     
     System.out.println("################################ proceeding from jwt auth filter");

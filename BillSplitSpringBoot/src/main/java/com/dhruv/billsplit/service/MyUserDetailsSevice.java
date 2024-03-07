@@ -4,6 +4,8 @@ import com.dhruv.billsplit.entities.*;
 import com.dhruv.billsplit.req.AddExpenseRequest;
 import com.dhruv.billsplit.req.AddFriendRequest;
 import com.dhruv.billsplit.req.AddGroupUsersRequest;
+import com.dhruv.billsplit.req.ExpenseReadRequest;
+import com.dhruv.billsplit.res.ExpenseReadResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -13,7 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -28,6 +34,12 @@ public class MyUserDetailsSevice implements UserDetailsService {
 
 	@Autowired
 	ExpensesRepository expensesRepository;
+
+	@Autowired
+	ExpenseReadResponse expenseReadResponse;
+
+	@Autowired
+	DebtRepository debtRepository;
 
 //	public MyUserDetailsSevice(UserRepository userRepository, GroupsRepository groupsRepository) {
 //		super();
@@ -94,6 +106,7 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		}
 	}
 
+	@Transactional
 	public void addExpense(AddExpenseRequest addExpenseRequest){
 		System.out.println("########## Inside add expense of service");
 
@@ -121,11 +134,50 @@ public class MyUserDetailsSevice implements UserDetailsService {
 			expenses.setParticipants(usersList);
 			expenses.setUserGroup(userGroup);
 			expenses.setPaidBy(paidByList);
-			expensesRepository.save(expenses);
+			expenses = expensesRepository.save(expenses);
+
+			if("EQUAL".equals(addExpenseRequest.getSplit_type())){
+				System.out.println("######## split type is equal in add expense service");
+				List<Debt> debts = new ArrayList<>();
+				double share = addExpenseRequest.getAmount()/usersList.size();
+				for(Users user : usersList){
+					debts.add(new Debt(expenses,user,share));
+				}
+				debtRepository.saveAll(debts);
+//				expenses.setDebts(debts);
+			}
+
 		}
 
+	}
+
+	public ExpenseReadResponse readExpense(ExpenseReadRequest expenseReadRequest){
+		System.out.println("######## inside read expense of service");
+		Expenses expenses = expensesRepository.findById(expenseReadRequest.getId()).orElseThrow();
+		expenseReadResponse.setAmount(expenses.getAmount());
+		expenseReadResponse.setDescription(expenses.getDescription());
+		expenseReadResponse.setSplitType(expenses.getSplitType());
+		expenseReadResponse.setUsergroup_name(expenses.getUserGroup().getUser_group_name());
+		List<String> participants = expenses.getParticipants().stream().map(Users::getEmail).collect(Collectors.toList());
+		System.out.println("######## participants list is: " + participants);
+		expenseReadResponse.setParticipantList(participants);
+		List<String> paidByList = expenses.getPaidBy().stream().map(Users::getEmail).collect(Collectors.toList());
+		System.out.println("######### paid by list is : " + paidByList);
+		expenseReadResponse.setPaidByList(paidByList);
 
 
+
+		Map<String,Double> owesMap = new HashMap<>();
+		List<Debt> debtsList = new ArrayList<>();
+		debtsList = expenses.getDebts();
+		for(Debt debt: debtsList){
+			owesMap.put(debt.getUser().getEmail(),debt.getShare());
+		}
+		expenseReadResponse.setOwes(owesMap);
+
+
+
+		return expenseReadResponse;
 	}
 
 }

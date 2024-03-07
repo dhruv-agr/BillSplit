@@ -3,16 +3,27 @@ package com.dhruv.billsplit.res;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class ExpenseReadResponse {
     private String description;
-    private long amount;
+    private double amount;
     private String splitType;
     private List<String> participantList;
 
     private List<String> paidByList;
     private String usergroup_name;
+
+    private Map<String,Double> owes;
+
+    public Map<String, Double> getOwes() {
+        return owes;
+    }
+
+    public void setOwes(Map<String, Double> owes) {
+        this.owes = owes;
+    }
 
     public List<String> getPaidByList() {
         return paidByList;
@@ -30,11 +41,11 @@ public class ExpenseReadResponse {
         this.description = description;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

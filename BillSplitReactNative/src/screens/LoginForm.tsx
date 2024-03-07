@@ -7,7 +7,9 @@ import Config from "react-native-config";
 import { AuthContext } from '../contexts/Auth';
 // import {getAuth} from '../contexts/Auth';
 
+const {authData, loading,signIn,signOut} = useContext(AuthContext);
 
+console.log("Login form is called");
 
 const userSchema = Yup.object({
   // firstName: Yup.string().required('First Name is required'),
@@ -17,7 +19,7 @@ const userSchema = Yup.object({
 });
 
 
-const {authData, loading,signIn,signOut} = useContext(AuthContext);
+
 
 const LoginForm = () => {
   return (

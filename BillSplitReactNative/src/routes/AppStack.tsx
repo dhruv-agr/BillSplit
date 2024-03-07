@@ -28,9 +28,11 @@ const styles = StyleSheet.create({
   }
 });
 
+
 const Stack = createNativeStackNavigator();
 
 export const AppStack = () => {
+  console.log("Appstack is called");
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false

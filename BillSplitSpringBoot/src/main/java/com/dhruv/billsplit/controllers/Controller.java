@@ -148,20 +148,8 @@ public class Controller {
 	public ExpenseReadResponse readExpense(@RequestBody ExpenseReadRequest expenseReadRequest) {
 		System.out.println("################ read expense get endpoint called");
 
-		Expenses expenses = expensesRepository.findById(expenseReadRequest.getId()).orElseThrow();
-		expenseReadResponse.setAmount(expenses.getAmount());
-		expenseReadResponse.setDescription(expenses.getDescription());
-		expenseReadResponse.setSplitType(expenses.getSplitType());
-		expenseReadResponse.setUsergroup_name(expenses.getUserGroup().getUser_group_name());
-		List<String> participants = expenses.getParticipants().stream().map(Users::getEmail).collect(Collectors.toList());
-		System.out.println("######## participants list is: " + participants);
-		expenseReadResponse.setParticipantList(participants);
-		List<String> paidByList = expenses.getPaidBy().stream().map(Users::getEmail).collect(Collectors.toList());
-		System.out.println("######### paid by list is : " + paidByList);
-		expenseReadResponse.setPaidByList(paidByList);
+		expenseReadResponse=myUserDetailsSevice.readExpense(expenseReadRequest);
 		return expenseReadResponse;
-
-
 
 	}
 }

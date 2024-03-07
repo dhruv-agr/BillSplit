@@ -6,6 +6,7 @@ import Config from "react-native-config";
 
 const HOST_IP = Config.HOST_IP;
 
+console.log("Friends is called");
 console.log('host ip is : '+HOST_IP);
 
 let testRes;

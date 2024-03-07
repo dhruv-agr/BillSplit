@@ -13,6 +13,8 @@ type PropsGroupDetailsScreen = NativeStackScreenProps<RootStackParamList, 'Group
 type GroupsType = {
   user_group_name: string
   user_group_id: number
+  created_by:string
+  creation_date:string
 }
 
 

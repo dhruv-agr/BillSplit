@@ -3,7 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginForm from '../screens/LoginForm';
 
+console.log("AuthStack is called");
+
 const Stack = createNativeStackNavigator();
+
 
 export const AuthStack = () => {
   return (

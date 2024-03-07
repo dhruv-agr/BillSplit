@@ -39,6 +39,9 @@ public class Users implements UserDetails {
   @JoinColumn(name="friend", referencedColumnName="email")
   private Set<Users> friends;
 
+  @OneToMany(mappedBy = "user")
+  private List<Debt> debts;
+
 
   public List<Expenses> getPaidByThisUser() {
     return paidByThisUser;

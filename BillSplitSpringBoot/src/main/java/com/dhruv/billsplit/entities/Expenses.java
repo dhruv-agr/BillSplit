@@ -15,8 +15,19 @@ public class Expenses {
 
     @ManyToMany
     private List<Users> paidBy;
-    private long amount;
+    private double amount;
     private String splitType;
+
+    @OneToMany(mappedBy = "expenses")
+    private List<Debt> debts;
+
+    public List<Debt> getDebts() {
+        return debts;
+    }
+
+    public void setDebts(List<Debt> debts) {
+        this.debts = debts;
+    }
 
     public UserGroup getUserGroup() {
         return userGroup;
@@ -48,11 +59,11 @@ public class Expenses {
         this.paidBy = paidBy;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

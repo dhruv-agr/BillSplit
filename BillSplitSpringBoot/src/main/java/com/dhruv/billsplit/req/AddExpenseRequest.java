@@ -7,7 +7,7 @@ import java.util.List;
 @Component
 public class AddExpenseRequest {
     private String description;
-    private long amount;
+    private double amount;
     private String split_type;
     private List<String> paidBy;
     private List<String> participants;
@@ -21,11 +21,11 @@ public class AddExpenseRequest {
         this.description = description;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
