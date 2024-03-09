@@ -2,10 +2,11 @@ package com.dhruv.billsplit.entities;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-public class Expenses {
+public class Expenses extends AuditorEntity{
 
     @Id
     @GeneratedValue( strategy= GenerationType.AUTO,
@@ -20,6 +21,7 @@ public class Expenses {
 
     @OneToMany(mappedBy = "expenses")
     private List<Debt> debts;
+
 
     public List<Debt> getDebts() {
         return debts;

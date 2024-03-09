@@ -2,20 +2,25 @@ package com.dhruv.billsplit.entities;
 
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-public class UserGroup {
+public class UserGroup extends AuditorEntity{
 	@Id
 	@GeneratedValue( strategy= GenerationType.AUTO,
 			generator="native")
 	int user_group_id;
 	String user_group_name;
-	String created_by;
-	Timestamp creation_date;
+
+
+
 
 	@JsonIgnore
 	@ManyToMany
@@ -23,6 +28,24 @@ public class UserGroup {
 	@JsonIgnore
 	@OneToMany(mappedBy = "userGroup")
 	List<Expenses> expenses;
+	@OneToMany(mappedBy = "userGroup")
+	List<Payments> payments;
+
+	public List<Expenses> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(List<Expenses> expenses) {
+		this.expenses = expenses;
+	}
+
+	public List<Payments> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payments> payments) {
+		this.payments = payments;
+	}
 
 	public List<Users> getUsers() {
 		return users;
@@ -44,16 +67,5 @@ public class UserGroup {
 	public void setUser_group_name(String user_group_name) {
 		this.user_group_name = user_group_name;
 	}
-	public String getCreated_by() {
-		return created_by;
-	}
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	public Timestamp getCreation_date() {
-		return creation_date;
-	}
-	public void setCreation_date(Timestamp creation_date) {
-		this.creation_date = creation_date;
-	}
+
 }

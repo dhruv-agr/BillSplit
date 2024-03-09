@@ -41,7 +41,35 @@ public class Users implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Debt> debts;
+  @OneToMany(mappedBy = "payer")
+  private List<Payments> payments;
 
+  @OneToMany(mappedBy = "recipient")
+  private List<Payments> collections;
+
+  public List<Debt> getDebts() {
+    return debts;
+  }
+
+  public void setDebts(List<Debt> debts) {
+    this.debts = debts;
+  }
+
+  public List<Payments> getPayments() {
+    return payments;
+  }
+
+  public void setPayments(List<Payments> payments) {
+    this.payments = payments;
+  }
+
+  public List<Payments> getCollections() {
+    return collections;
+  }
+
+  public void setCollections(List<Payments> collections) {
+    this.collections = collections;
+  }
 
   public List<Expenses> getPaidByThisUser() {
     return paidByThisUser;

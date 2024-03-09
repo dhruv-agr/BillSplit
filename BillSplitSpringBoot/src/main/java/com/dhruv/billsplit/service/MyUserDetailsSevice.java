@@ -1,10 +1,7 @@
 package com.dhruv.billsplit.service;
 
 import com.dhruv.billsplit.entities.*;
-import com.dhruv.billsplit.req.AddExpenseRequest;
-import com.dhruv.billsplit.req.AddFriendRequest;
-import com.dhruv.billsplit.req.AddGroupUsersRequest;
-import com.dhruv.billsplit.req.ExpenseReadRequest;
+import com.dhruv.billsplit.req.*;
 import com.dhruv.billsplit.res.ExpenseReadResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,6 +175,10 @@ public class MyUserDetailsSevice implements UserDetailsService {
 
 
 		return expenseReadResponse;
+	}
+
+	public void addPayment(AddPaymentRequest addPaymentRequest){
+
 	}
 
 }

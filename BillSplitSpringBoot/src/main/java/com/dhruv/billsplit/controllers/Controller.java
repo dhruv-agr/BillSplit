@@ -16,6 +16,8 @@ import com.dhruv.billsplit.service.AuthenticationService;
 import com.dhruv.billsplit.service.MyUserDetailsSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.dhruv.billsplit.req.AddExpenseRequest;
 import com.dhruv.billsplit.req.ExpenseReadRequest;
 import com.dhruv.billsplit.res.ExpenseReadResponse;
+import com.dhruv.billsplit.req.AddPaymentRequest;
 @RestController
 public class Controller {
 	@Autowired
@@ -65,6 +68,13 @@ public class Controller {
 	public TestPageResponse testpage(HttpServletRequest request, HttpServletResponse response) {
 
 		return new TestPageResponse();
+	}
+
+	@GetMapping("/isTokenExpired")
+	public String isTokenExpired(HttpServletRequest request, HttpServletResponse response) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("########## Username of authenticated user is: " + ((Users)authentication.getPrincipal()).getUsername());
+		return "ALL OK";
 	}
 
 	@PostMapping("/register")
@@ -151,5 +161,12 @@ public class Controller {
 		expenseReadResponse=myUserDetailsSevice.readExpense(expenseReadRequest);
 		return expenseReadResponse;
 
+	}
+
+	@PostMapping("/payment")
+	@ResponseBody
+	public void addPayment(@RequestBody AddPaymentRequest addPaymentRequest){
+		System.out.println("########## Inside add payment post request");
+		myUserDetailsSevice.addPayment(addPaymentRequest);
 	}
 }
