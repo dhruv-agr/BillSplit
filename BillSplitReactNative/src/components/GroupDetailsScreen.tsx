@@ -61,7 +61,7 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
 const styles = StyleSheet.create({
   list:{
     // marginHorizontal:10,
-    backgroundColor: '#f9c2ff',  
+     
   },
     
 })

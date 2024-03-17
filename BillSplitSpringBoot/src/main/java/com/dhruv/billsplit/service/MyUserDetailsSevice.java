@@ -4,6 +4,8 @@ import com.dhruv.billsplit.entities.*;
 import com.dhruv.billsplit.req.*;
 import com.dhruv.billsplit.res.AllExpenseReadResponse;
 import com.dhruv.billsplit.res.ExpenseReadResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -85,7 +87,7 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		if(allUsersPresent && usersList.size()!=0){
 			System.out.println("########### All users in request found in db");
 			UserGroup userGroup = groupsRepository.findById(addGroupUsersRequest.getGroup_id()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "UserGroup not found."));
-			userGroup.getUsers().addAll(usersList);
+			userGroup.setUsers(usersList);
 			groupsRepository.save(userGroup);
 		}
 		else{
@@ -161,10 +163,10 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		expenseReadResponse.setDescription(expenses.getDescription());
 		expenseReadResponse.setSplitType(expenses.getSplitType());
 		expenseReadResponse.setUsergroup_name(expenses.getUserGroup().getUser_group_name());
-		List<String> participants = expenses.getParticipants().stream().map(Users::getEmail).collect(Collectors.toList());
+		List<Users> participants = expenses.getParticipants();
 		System.out.println("######## participants list is: " + participants);
 		expenseReadResponse.setParticipantList(participants);
-		List<String> paidByList = expenses.getPaidBy().stream().map(Users::getEmail).collect(Collectors.toList());
+		List<Users> paidByList = expenses.getPaidBy();
 		System.out.println("######### paid by list is : " + paidByList);
 		expenseReadResponse.setPaidByList(paidByList);
 
@@ -193,6 +195,11 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		List<Payments> payments = userGroup.getPayments();
 		System.out.println("######### list of payments in read group detail is: " + payments);
 		allExpenseReadResponse.setExpensesReadResponseList(expenses);
+
+		System.out.println("##### first expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(0).getExpenseId());
+		System.out.println("##### second expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(1).getExpenseId());
+		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
+
 		allExpenseReadResponse.setPaymentsListReadResponseList(payments);
 		return allExpenseReadResponse;
 

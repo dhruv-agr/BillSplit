@@ -1,5 +1,6 @@
 package com.dhruv.billsplit.res;
 
+import com.dhruv.billsplit.entities.Users;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -11,9 +12,9 @@ public class ExpenseReadResponse {
     private String description;
     private double amount;
     private String splitType;
-    private List<String> participantList;
+    private List<Users> participantList;
 
-    private List<String> paidByList;
+    private List<Users> paidByList;
     private String usergroup_name;
 
     private Map<String,Double> owes;
@@ -82,11 +83,11 @@ public class ExpenseReadResponse {
         this.owes = owes;
     }
 
-    public List<String> getPaidByList() {
+    public List<Users> getPaidByList() {
         return paidByList;
     }
 
-    public void setPaidByList(List<String> paidByList) {
+    public void setPaidByList(List<Users> paidByList) {
         this.paidByList = paidByList;
     }
 
@@ -114,11 +115,11 @@ public class ExpenseReadResponse {
         this.splitType = splitType;
     }
 
-    public List<String> getParticipantList() {
+    public List<Users> getParticipantList() {
         return participantList;
     }
 
-    public void setParticipantList(List<String> participantList) {
+    public void setParticipantList(List<Users> participantList) {
         this.participantList = participantList;
     }
 

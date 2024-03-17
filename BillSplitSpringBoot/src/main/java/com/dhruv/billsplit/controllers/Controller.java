@@ -1,5 +1,6 @@
 package com.dhruv.billsplit.controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,8 +114,16 @@ public class Controller {
 	@ResponseBody
 	public void createGroup(@RequestBody UserGroup userGroup) {
 		System.out.println("############ group post endpoint called");
-		groupsRepository.save(userGroup);
-		
+		UserGroup createdGroup = groupsRepository.save(userGroup);
+		AddGroupUsersRequest addGroupUsersRequest = new AddGroupUsersRequest();
+		HashSet<String> set = new HashSet<>();
+		set.add(createdGroup.getCreatedBy());
+		addGroupUsersRequest.setGroup_id(createdGroup.getUser_group_id());
+		addGroupUsersRequest.setEmailIds(set);
+		myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
+
+
+
 	}
 
 	@PostMapping("/groupUsers")

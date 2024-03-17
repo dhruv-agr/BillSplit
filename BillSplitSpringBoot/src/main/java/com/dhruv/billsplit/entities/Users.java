@@ -19,10 +19,12 @@ public class Users implements UserDetails {
   private String firstname;
   private String lastname;
 
+  @JsonIgnore
   private String password;
   @JsonIgnore
   @ManyToMany(mappedBy = "participants")
   private List<Expenses> expenses;
+  @JsonIgnore
   @ManyToMany(mappedBy = "paidBy")
   private List<Expenses> paidByThisUser;
 
@@ -38,12 +40,15 @@ public class Users implements UserDetails {
   @JoinColumn(name="user", referencedColumnName="email")
   @JoinColumn(name="friend", referencedColumnName="email")
   private Set<Users> friends;
-
+  @JsonIgnore
   @OneToMany(mappedBy = "user")
   private List<Debt> debts;
+
+  @JsonIgnore
   @OneToMany(mappedBy = "payer")
   private List<Payments> payments;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "recipient")
   private List<Payments> collections;
 
@@ -95,33 +100,38 @@ public class Users implements UserDetails {
   public void setFriends(Set<Users> friends) {
     this.friends = friends;
   }
+  @JsonIgnore
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
 //    return role.getAuthorities();
 	  return null;
   }
 
-
+  @JsonIgnore
   @Override
   public String getUsername() {
     return email;
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isEnabled() {
     return true;
