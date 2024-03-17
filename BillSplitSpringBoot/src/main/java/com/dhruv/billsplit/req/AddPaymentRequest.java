@@ -8,6 +8,16 @@ public class AddPaymentRequest {
     String recipient;
     double amount;
 
+    int groupId;
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
     public String getPayer() {
         return payer;
     }

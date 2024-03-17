@@ -20,6 +20,15 @@ public class Payments extends AuditorEntity{
     @ManyToOne
     Users recipient;
 
+    Double amount;
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
     public int getPaymentId() {
         return paymentId;

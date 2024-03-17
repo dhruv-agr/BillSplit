@@ -33,7 +33,38 @@ public abstract class AuditorEntity {
     @Column(name = "UpdatedBy", length = 50)
     private String updatedBy;
 
-//    @Column(name = "DeletedOn")
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    //    @Column(name = "DeletedOn")
 //    private LocalDateTime deletedOn;
 //
 //    @Column(name = "DeletedBy", length = 50)

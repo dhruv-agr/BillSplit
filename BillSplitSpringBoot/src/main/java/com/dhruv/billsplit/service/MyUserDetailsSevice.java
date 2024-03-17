@@ -2,10 +2,10 @@ package com.dhruv.billsplit.service;
 
 import com.dhruv.billsplit.entities.*;
 import com.dhruv.billsplit.req.*;
+import com.dhruv.billsplit.res.AllExpenseReadResponse;
 import com.dhruv.billsplit.res.ExpenseReadResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,6 +37,12 @@ public class MyUserDetailsSevice implements UserDetailsService {
 
 	@Autowired
 	DebtRepository debtRepository;
+
+	@Autowired
+	AllExpenseReadResponse allExpenseReadResponse;
+
+	@Autowired
+	PaymentsRepository paymentsRepository;
 
 //	public MyUserDetailsSevice(UserRepository userRepository, GroupsRepository groupsRepository) {
 //		super();
@@ -177,7 +183,34 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		return expenseReadResponse;
 	}
 
-	public void addPayment(AddPaymentRequest addPaymentRequest){
+
+
+	public AllExpenseReadResponse readGroupDetail(int id) {
+		System.out.println("######## inside read all group expenses of service");
+		UserGroup userGroup = groupsRepository.findById(id).orElseThrow();
+		List<Expenses> expenses = userGroup.getExpenses();
+		System.out.println("########## list of expenses in read group detail is : " + expenses);
+		List<Payments> payments = userGroup.getPayments();
+		System.out.println("######### list of payments in read group detail is: " + payments);
+		allExpenseReadResponse.setExpensesReadResponseList(expenses);
+		allExpenseReadResponse.setPaymentsListReadResponseList(payments);
+		return allExpenseReadResponse;
+
+	}
+
+		public void addPayment(AddPaymentRequest addPaymentRequest){
+		Payments payments = new Payments();
+		Users payer = userRepository.findByEmail(addPaymentRequest.getPayer());
+		Users recipient = userRepository.findByEmail(addPaymentRequest.getRecipient());
+		UserGroup userGroup = groupsRepository.findById(addPaymentRequest.getGroupId()).orElseThrow();
+
+
+		payments.setPayer(payer);
+		payments.setRecipient(recipient);
+		payments.setAmount(addPaymentRequest.getAmount());
+		payments.setUserGroup(userGroup);
+
+		paymentsRepository.save(payments);
 
 	}
 

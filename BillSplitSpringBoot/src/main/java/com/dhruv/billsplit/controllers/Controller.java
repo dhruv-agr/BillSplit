@@ -4,32 +4,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.dhruv.billsplit.entities.*;
-import com.dhruv.billsplit.req.AddFriendRequest;
-import com.dhruv.billsplit.req.AddGroupUsersRequest;
-import com.dhruv.billsplit.req.AuthenticationRequest;
-import com.dhruv.billsplit.req.UserReadRequest;
-import com.dhruv.billsplit.res.AuthenticationResponse;
+import com.dhruv.billsplit.req.*;
+import com.dhruv.billsplit.res.*;
 import com.dhruv.billsplit.RegisterRequest;
-import com.dhruv.billsplit.res.TestPageResponse;
-import com.dhruv.billsplit.res.UserReadResponse;
 import com.dhruv.billsplit.service.AuthenticationService;
 import com.dhruv.billsplit.service.MyUserDetailsSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.dhruv.billsplit.req.AddExpenseRequest;
-import com.dhruv.billsplit.req.ExpenseReadRequest;
-import com.dhruv.billsplit.res.ExpenseReadResponse;
-import com.dhruv.billsplit.req.AddPaymentRequest;
+
 @RestController
 public class Controller {
 	@Autowired
@@ -51,6 +39,12 @@ public class Controller {
 	ExpensesRepository expensesRepository;
 	@Autowired
 	ExpenseReadResponse expenseReadResponse;
+
+	@Autowired
+	AllExpensesReadRequest allExpensesReadRequest;
+
+	@Autowired
+	AllExpenseReadResponse allExpensesReadResponse;
 
 	@GetMapping("/user")
 	public UserReadResponse getUser(@RequestBody UserReadRequest userReadRequest) {
@@ -163,10 +157,23 @@ public class Controller {
 
 	}
 
+	@GetMapping("/groupDetail")
+	@ResponseBody
+	public AllExpenseReadResponse readExpenses(@RequestParam int id) {
+		System.out.println("################ read all expenses of a group get endpoint called");
+
+		allExpensesReadResponse=myUserDetailsSevice.readGroupDetail(id);
+		System.out.println("####### group detail response in controller is : " + allExpensesReadResponse.toString());
+		return allExpensesReadResponse;
+
+	}
+
 	@PostMapping("/payment")
 	@ResponseBody
 	public void addPayment(@RequestBody AddPaymentRequest addPaymentRequest){
 		System.out.println("########## Inside add payment post request");
 		myUserDetailsSevice.addPayment(addPaymentRequest);
 	}
+
+
 }

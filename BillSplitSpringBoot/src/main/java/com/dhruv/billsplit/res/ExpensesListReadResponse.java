@@ -1,5 +1,6 @@
 package com.dhruv.billsplit.res;
 
+
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -7,16 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ExpenseReadResponse {
+public class ExpensesListReadResponse {
     private String description;
     private double amount;
-    private String splitType;
-    private List<String> participantList;
 
-    private List<String> paidByList;
     private String usergroup_name;
-
-    private Map<String,Double> owes;
 
     private int groupId;
     private int expenseId;
@@ -74,21 +70,6 @@ public class ExpenseReadResponse {
         this.updated_on = updated_on;
     }
 
-    public Map<String, Double> getOwes() {
-        return owes;
-    }
-
-    public void setOwes(Map<String, Double> owes) {
-        this.owes = owes;
-    }
-
-    public List<String> getPaidByList() {
-        return paidByList;
-    }
-
-    public void setPaidByList(List<String> paidByList) {
-        this.paidByList = paidByList;
-    }
 
     public String getDescription() {
         return description;
@@ -106,21 +87,6 @@ public class ExpenseReadResponse {
         this.amount = amount;
     }
 
-    public String getSplitType() {
-        return splitType;
-    }
-
-    public void setSplitType(String splitType) {
-        this.splitType = splitType;
-    }
-
-    public List<String> getParticipantList() {
-        return participantList;
-    }
-
-    public void setParticipantList(List<String> participantList) {
-        this.participantList = participantList;
-    }
 
     public String getUsergroup_name() {
         return usergroup_name;
@@ -130,3 +96,5 @@ public class ExpenseReadResponse {
         this.usergroup_name = usergroup_name;
     }
 }
+
+

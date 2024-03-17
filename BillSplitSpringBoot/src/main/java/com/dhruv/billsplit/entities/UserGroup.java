@@ -28,6 +28,7 @@ public class UserGroup extends AuditorEntity{
 	@JsonIgnore
 	@OneToMany(mappedBy = "userGroup")
 	List<Expenses> expenses;
+	@JsonIgnore
 	@OneToMany(mappedBy = "userGroup")
 	List<Payments> payments;
 
