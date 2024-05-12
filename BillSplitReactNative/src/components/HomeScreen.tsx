@@ -1,11 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator();
+
 import Friends from '../components/Friends';
 import Activity from '../components/Activity';
 import Profile from '../components/Profile';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GroupStackScreen from '../components/GroupStackScreen';
 import LoginForm from '../screens/LoginForm';
+import { PropsGroupStackScreen, RootTabParamList } from './Types';
+import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
 const HomeScreen = () => {
     return (<Tab.Navigator
             screenOptions={({ route }) => ({
@@ -24,9 +29,7 @@ const HomeScreen = () => {
                 else if (route.name === 'Profile') {
                     iconName='user-circle';
                 }
-                else if(route.name === 'LoginForm'){
-                    iconName='unlock';
-                }
+                
 
                 
                 return <Icon name={iconName} size={size} color={highlight} />;

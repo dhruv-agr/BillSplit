@@ -1,14 +1,26 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigatorScreenParams } from '@react-navigation/native';
 
 type RootStackParamList = {
   GroupScreen: undefined;
   GroupDetailsScreen:{groupName:string, groupId:number};
+  GroupStackScreen:undefined;
+  AddGroupForm:undefined;
 };
+
+type RootTabParamList ={
+  Groups:NavigatorScreenParams<RootStackParamList>;
+  Friends:undefined;
+  Activity:undefined;
+  Profile:undefined;
+}
 
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'GroupScreen'>;
 type PropsGroupDetailsScreen = NativeStackScreenProps<RootStackParamList, 'GroupDetailsScreen'>;
+type PropsGroupStackScreen = NativeStackScreenProps<RootStackParamList, 'GroupStackScreen'>;
+
 
 type GroupsType = {
   user_group_name: string
@@ -51,5 +63,5 @@ type PaymentDetailType = {
 }
 
 
-export type {RootStackParamList,Props,PropsGroupDetailsScreen,GroupsType,GroupDetailResponse};
+export type {RootStackParamList,Props,PropsGroupDetailsScreen,PropsGroupStackScreen,GroupsType,GroupDetailResponse,RootTabParamList};
 // export default Props;
