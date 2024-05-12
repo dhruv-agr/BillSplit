@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -26,6 +27,20 @@ public class ApplicationConfig {
     UserRepository userRepository;
     @Autowired
     MyUserDetailsSevice myUserDetailsSevice;
+
+
+//    @Bean
+//    public CommonsRequestLoggingFilter logFilter() {
+//        CommonsRequestLoggingFilter filter
+//                = new CommonsRequestLoggingFilter();
+//        filter.setIncludeQueryString(true);
+//        filter.setIncludePayload(true);
+//        filter.setMaxPayloadLength(10000);
+//        filter.setIncludeHeaders(false);
+//        filter.setAfterMessagePrefix("REQUEST DATA: ");
+//        return filter;
+//    }
+
 
     @Bean
     public AuditorAware auditorAware() {

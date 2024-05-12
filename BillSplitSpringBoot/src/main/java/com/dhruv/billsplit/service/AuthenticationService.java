@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import java.util.List;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Service
 
@@ -60,10 +62,7 @@ public AuthenticationResponse register(RegisterRequest request) {
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
       System.out.println("################# Inside authenticate of authentication service");
       authenticationManager.authenticate(
-              new UsernamePasswordAuthenticationToken(
-                      request.getEmail(),
-                      request.getPassword()
-              )
+              new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")))
       );
       System.out.println("############## After authentication in authentication service");
     var user = repository.findByEmail(request.getEmail());

@@ -11,6 +11,7 @@ import com.dhruv.billsplit.RegisterRequest;
 import com.dhruv.billsplit.service.AuthenticationService;
 import com.dhruv.billsplit.service.MyUserDetailsSevice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +47,9 @@ public class Controller {
 
 	@Autowired
 	AllExpenseReadResponse allExpensesReadResponse;
+
+	@Autowired
+	CreateGroupResponse createGroupResponse;
 
 	@GetMapping("/user")
 	public UserReadResponse getUser(@RequestBody UserReadRequest userReadRequest) {
@@ -110,9 +114,9 @@ public class Controller {
 		return ResponseEntity.ok("Hello HOME !!!");
 	}
 	
-	@PostMapping("/group")
+	@PostMapping(value="/group",produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public void createGroup(@RequestBody UserGroup userGroup) {
+	public CreateGroupResponse createGroup(@RequestBody UserGroup userGroup) {
 		System.out.println("############ group post endpoint called");
 		UserGroup createdGroup = groupsRepository.save(userGroup);
 		AddGroupUsersRequest addGroupUsersRequest = new AddGroupUsersRequest();
@@ -121,7 +125,7 @@ public class Controller {
 		addGroupUsersRequest.setGroup_id(createdGroup.getUser_group_id());
 		addGroupUsersRequest.setEmailIds(set);
 		myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
-
+		return createGroupResponse;
 
 
 	}
