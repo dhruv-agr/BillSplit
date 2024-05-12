@@ -20,6 +20,7 @@ type RootTabParamList ={
 type Props = NativeStackScreenProps<RootStackParamList, 'GroupScreen'>;
 type PropsGroupDetailsScreen = NativeStackScreenProps<RootStackParamList, 'GroupDetailsScreen'>;
 type PropsGroupStackScreen = NativeStackScreenProps<RootStackParamList, 'GroupStackScreen'>;
+type PropsAddGroupForm = NativeStackScreenProps<RootStackParamList, 'AddGroupForm'>;
 
 
 type GroupsType = {
@@ -62,6 +63,16 @@ type PaymentDetailType = {
   updated_on: string
 }
 
+export type CreateGroupResponse = {
+  "createdOn":Date,
+  "createdBy":string,
+  "updatedOn":Date,
+  "updatedBy":string,
+  "user_group_id":452,
+  "user_group_name":string
 
-export type {RootStackParamList,Props,PropsGroupDetailsScreen,PropsGroupStackScreen,GroupsType,GroupDetailResponse,RootTabParamList};
+}
+
+
+export type {RootStackParamList,Props,PropsGroupDetailsScreen,PropsGroupStackScreen,PropsAddGroupForm,GroupsType,GroupDetailResponse,RootTabParamList};
 // export default Props;

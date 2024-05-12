@@ -5,6 +5,8 @@ import * as Yup from 'yup'
 import { Formik } from 'formik';
 import { AuthContext } from '../contexts/Auth';
 import postSecured from '../requests/postSecured';
+import type {PropsAddGroupForm,CreateGroupResponse} from '../components/Types';
+
 
 const {authData, loading,signIn,signOut} = useContext(AuthContext);
 
@@ -20,7 +22,7 @@ let apiData={
 
 
 
-const AddGroupForm = () => {
+const AddGroupForm = ({navigation}:PropsAddGroupForm) => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Formik
@@ -30,7 +32,16 @@ const AddGroupForm = () => {
             console.log(values);
             apiData.user_group_name = values.groupName;
             if(authData){
-              postSecured(authData,'group',apiData);
+              postSecured(authData,'group',apiData).then((res)=>{
+                let jsonRes = JSON.stringify(res);
+                console.log( "res of group creation is: " + jsonRes);
+                if(jsonRes!= undefined || jsonRes != null){
+                  let myres = res as CreateGroupResponse;
+                  navigation.navigate('GroupDetailsScreen',{groupName:myres.user_group_name, groupId:myres.user_group_id})
+                }
+              }
+
+              );
 
             }
             // api call to create group
