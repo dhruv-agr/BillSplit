@@ -68,7 +68,8 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		return user;
 	}
 
-	public void addGroupUser(AddGroupUsersRequest addGroupUsersRequest){
+	public UserGroup addGroupUser(AddGroupUsersRequest addGroupUsersRequest){
+		UserGroup userGroup=null;
 		System.out.println("###### user set in request is: " + addGroupUsersRequest.getEmailIds().toString());
 		System.out.println("###### user set to list : " + addGroupUsersRequest.getEmailIds().stream().toList());
 
@@ -86,13 +87,14 @@ public class MyUserDetailsSevice implements UserDetailsService {
 
 		if(allUsersPresent && usersList.size()!=0){
 			System.out.println("########### All users in request found in db");
-			UserGroup userGroup = groupsRepository.findById(addGroupUsersRequest.getGroup_id()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "UserGroup not found."));
+			userGroup = groupsRepository.findById(addGroupUsersRequest.getGroup_id()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "UserGroup not found."));
 			userGroup.setUsers(usersList);
-			groupsRepository.save(userGroup);
+			userGroup=groupsRepository.save(userGroup);
 		}
 		else{
 			System.out.println("############### Some users in request not present in system");
 		}
+		return userGroup;
 	}
 
 	@Transactional
@@ -196,9 +198,9 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		System.out.println("######### list of payments in read group detail is: " + payments);
 		allExpenseReadResponse.setExpensesReadResponseList(expenses);
 
-		System.out.println("##### first expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(0).getExpenseId());
-		System.out.println("##### second expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(1).getExpenseId());
-		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
+//		System.out.println("##### first expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(0).getExpenseId());
+//		System.out.println("##### second expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(1).getExpenseId());
+//		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
 
 		allExpenseReadResponse.setPaymentsListReadResponseList(payments);
 		return allExpenseReadResponse;

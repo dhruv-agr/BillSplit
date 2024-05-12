@@ -48,8 +48,6 @@ public class Controller {
 	@Autowired
 	AllExpenseReadResponse allExpensesReadResponse;
 
-	@Autowired
-	CreateGroupResponse createGroupResponse;
 
 	@GetMapping("/user")
 	public UserReadResponse getUser(@RequestBody UserReadRequest userReadRequest) {
@@ -116,7 +114,7 @@ public class Controller {
 	
 	@PostMapping(value="/group",produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public CreateGroupResponse createGroup(@RequestBody UserGroup userGroup) {
+	public ResponseEntity<UserGroup> createGroup(@RequestBody UserGroup userGroup) {
 		System.out.println("############ group post endpoint called");
 		UserGroup createdGroup = groupsRepository.save(userGroup);
 		AddGroupUsersRequest addGroupUsersRequest = new AddGroupUsersRequest();
@@ -124,8 +122,8 @@ public class Controller {
 		set.add(createdGroup.getCreatedBy());
 		addGroupUsersRequest.setGroup_id(createdGroup.getUser_group_id());
 		addGroupUsersRequest.setEmailIds(set);
-		myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
-		return createGroupResponse;
+		createdGroup = myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
+		return ResponseEntity.ok(createdGroup);
 
 
 	}
