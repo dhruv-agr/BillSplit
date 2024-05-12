@@ -53,7 +53,7 @@ public class UserGroup extends AuditorEntity{
 	}
 
 	public void setUsers(List<Users> users) {
-		this.users = users;
+		this.users.addAll(users) ;
 	}
 
 	public int getUser_group_id() {
