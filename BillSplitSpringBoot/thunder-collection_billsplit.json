@@ -1,0 +1,302 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "billsplit",
+    "collectionId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+    "dateExported": "2024-11-10T21:15:30.905Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6cb0e077-09bf-4acf-9d90-f24e278f07cc",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "getGroups",
+            "url": "http://localhost:8080/groups",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-02-08T03:33:07.511Z",
+            "modified": "2024-03-17T13:41:34.098Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXVyYWFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzEwNjgyODc5LCJleHAiOjE3MTA2ODMxNzl9.7v2YXXaffbRhNew0jj4Yd1hlbcZID3Hx2fs4fFFii3A"
+            },
+            "tests": []
+        },
+        {
+            "_id": "62d83773-f0c9-4c66-8b4f-13c5908cb996",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "registerUser",
+            "url": "http://localhost:8080/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-26T05:12:48.635Z",
+            "modified": "2024-05-12T05:48:35.668Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstname\":\"Gaura\",\n  \"lastname\": \"Agrawal\",\n  \"email\": \"gauraagrawal@gmail.com\",\n  \"password\": \"Welcome@1\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "eea7af25-eee9-4acc-a4d2-7ae3baabdf84",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "authenticate",
+            "url": "http://localhost:8080/authenticate",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-02-26T16:54:19.683Z",
+            "modified": "2024-05-11T08:18:03.072Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"dhruvagrawal@gmail.com\",\n  \"password\": \"Welcome@1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "763a8e57-9b91-4350-a44e-58eb5420571a",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "testpage",
+            "url": "http://192.168.7.9:8080/testpage",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-02-26T18:58:23.768Z",
+            "modified": "2024-02-27T13:55:16.260Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2a51985f-3a9c-4eb5-9681-324d792852a3",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "createGroup",
+            "url": "http://localhost:8080/group",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-03-02T07:53:10.311Z",
+            "modified": "2024-05-12T07:24:47.668Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"user_group_name\": \"ECompany\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE1NDk4NjcwLCJleHAiOjE3MTU0OTg5NzB9.lWrzThRNU7DR6nULv7gUdKSG3vqR2tMj6N42rUIy24w"
+            }
+        },
+        {
+            "_id": "5af53fac-53eb-468e-9867-dad0f25c63f9",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "groupUsers",
+            "url": "http://localhost:8080/groupUsers",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-03-02T13:32:40.229Z",
+            "modified": "2024-05-12T06:16:31.464Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"group_id\":\"152\",\n  \"emailIds\":[\"gauraagrawal@gmail.com\"]\n  \n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE1NDk0NTU5LCJleHAiOjE3MTU0OTQ4NTl9.YQsSQthY_6cXLnfRfffiiOEK9Tv5AKIXUde0l7PPzps"
+            }
+        },
+        {
+            "_id": "04983dd0-ccf7-4c95-beec-e009c0afab0c",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "addFriend",
+            "url": "http://localhost:8080/friend",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-03-02T15:30:56.420Z",
+            "modified": "2024-05-12T06:30:55.806Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userEmail\":\"dhruvagrawal@gmail.com\",\n  \"friendEmail\": \"gauraagrawal@gmail.com\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE1NDk1NDQwLCJleHAiOjE3MTU0OTU3NDB9.WgBbGvEn61eaK8aaPpEhP-FVg37j8HXBSodbNaVCQXE"
+            }
+        },
+        {
+            "_id": "1441c063-34d1-432a-b396-508e93e65ca9",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "readUser",
+            "url": "http://localhost:8080/user",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-03-02T18:08:56.797Z",
+            "modified": "2024-03-02T18:37:21.920Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\" : \"email@gmail.com\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1bmltcG9ydGFudHN0dWZmY3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwOTQwNDYzMSwiZXhwIjoxNzA5NDA0OTMxfQ.BUesUmK5Q1ODbPU7aZXjavtf5aYfGO7pbKgbM6veTmg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "77071418-41a1-4f1b-b7ff-3817188a6931",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "addExpense",
+            "url": "http://localhost:8080/expense",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-03-03T05:03:47.579Z",
+            "modified": "2024-05-12T13:06:45.380Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"description\" : \"Falooda\",\n  \"amount\" : \"800\",\n  \"split_type\" : \"EQUAL\",\n  \"paidBy\" : [\"gauraagrawal@gmail.com\",\"dhruvagrawal@gmail.com\"],\n  \"participants\" : [\"dhruvagrawal@gmail.com\",\"gauraagrawal@gmail.com\"],\n  \"usergroup_id\" : \"1\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE1NTE5MTUzLCJleHAiOjE3MTU1MTk0NTN9.5StXi3Vtqnfo4F1hdmRhzMVmkXOrWGtCE4xzu0ImAgM"
+            }
+        },
+        {
+            "_id": "95547754-b1bc-4d2c-80bb-78641b84e24d",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "getExpense",
+            "url": "http://localhost:8080/expense",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-03-03T07:15:52.658Z",
+            "modified": "2024-05-12T13:18:38.330Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\" :\"552\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE1NTE5OTA2LCJleHAiOjE3MTU1MjAyMDZ9.dHCGf1AZgSM0bUh86fU7DnPKj52uhd4iI0kO6FBrqA8"
+            }
+        },
+        {
+            "_id": "2d7ddd47-8b15-40d3-a7c6-984df193a38e",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "isTokenExpired",
+            "url": "http://localhost:8080/isTokenExpired",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-03-08T18:02:53.967Z",
+            "modified": "2024-03-08T18:03:29.310Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXVyYWFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzA5OTIwOTk1LCJleHAiOjE3MDk5MjEyOTV9.--SzP-ZiVfJqqZvqSUD3UCPaRu5byiYKcwcqjwbMjUQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6afb6787-873c-4c35-b92f-80455cabbef2",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "addPayment",
+            "url": "http://localhost:8080/payment",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2024-03-16T07:30:57.397Z",
+            "modified": "2024-03-16T08:05:36.391Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"payer\": \"dhruvagrawal@gmail.com\",\n  \"recipient\": \"gauraagrawal@gmail.com\",\n  \"amount\" : \"400\",\n  \"groupId\": \"1\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXVyYWFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzEwNTc2MzE0LCJleHAiOjE3MTA1NzY2MTR9.z7f3ZzE8A7Aow-GRv3mAGfNUNhf4GPtb3pebp73BMyc"
+            },
+            "tests": []
+        },
+        {
+            "_id": "858d8a3f-ad02-4e97-932e-16245763792a",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "groupDetail",
+            "url": "http://localhost:8080/groupDetail?id=1",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2024-03-16T08:27:45.233Z",
+            "modified": "2024-03-17T14:31:55.655Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXVyYWFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzEwNjg1ODQ2LCJleHAiOjE3MTA2ODYxNDZ9.-A2zwJzqoDLjdasXxwll-DBq6ehEcqroyBZyXpFxVu8"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b8052cc6-a065-4546-a186-5b62e1466d02",
+            "colId": "a4d7efb4-a157-49ff-9755-6b79ba2ec4c4",
+            "containerId": "",
+            "name": "getFriends",
+            "url": "http://localhost:8080/friends?email=dhruvagrawal@gmail.com",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-06-08T08:30:05.802Z",
+            "modified": "2024-06-08T16:08:03.770Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "email",
+                    "value": "dhruvagrawal@gmail.com",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkaHJ1dmFncmF3YWxAZ21haWwuY29tIiwiaWF0IjoxNzE3ODYyNzc3LCJleHAiOjE3MTc4NjMwNzd9.Q_EFoe0iL1xp2gvP3HYy9s7NNfEXFqUIrP7sPn6k0Es"
+            }
+        }
+    ],
+    "ref": "GzzeP8MZF518O7H6lQHtvzOy9bc9PEDeORZ-N8UtCt9gaWe-M2gYbgCLLlKdjMvMGlvIrKxG8EfSeC3r0AGEhg"
+}

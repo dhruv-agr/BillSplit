@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 @RestController
 public class Controller {
@@ -145,6 +146,17 @@ public class Controller {
 
 		myUserDetailsSevice.addFriend(addFriendRequest);
 
+
+	}
+
+	@GetMapping("/friends")
+	@ResponseBody
+	public Set<Users> getFriends(@RequestParam String email) {
+		System.out.println("################ get friends get endpoint called");
+		System.out.println("########### received email is: " + email);
+
+		Set<Users> friendSet = myUserDetailsSevice.getFriends(email);
+		return friendSet;
 
 	}
 

@@ -8,6 +8,8 @@ import GroupScreen from './GroupScreen'
 import GroupDetailsScreen from './GroupDetailsScreen';
 import type {PropsGroupDetailsScreen,RootStackParamList,PropsGroupStackScreen} from './Types';
 import AddGroupForm from '../screens/AddGroupForm';
+import AddExpenseForm from '../screens/AddExpenseForm';
+
 
 // type GroupStackScreenProps = {
 //     groupName: string;
@@ -48,10 +50,22 @@ function  GroupStackScreen({navigation}:PropsGroupStackScreen){
           }} 
       />
     
-      <GroupStack.Screen name="GroupDetailsScreen" component={GroupDetailsScreen}  options={({route}) => ({
-      title: route.params.groupName,
-      })}/>
+      <GroupStack.Screen name="GroupDetailsScreen" component={GroupDetailsScreen}  options={{
+    
+      headerRight: () => (
+
+        <Pressable onPress={()=>{
+          console.log('add expense button clicked');
+          navigation.navigate('AddExpenseForm');
+          }}>
+          <IconAnt name='addusergroup' size ={25} />
+        </Pressable>
+        
+      ),
+      }}/>
       <GroupStack.Screen name="AddGroupForm" component={AddGroupForm}/>
+      <GroupStack.Screen name="AddExpenseForm" component={AddExpenseForm}/>
+
 
 
     </GroupStack.Navigator>

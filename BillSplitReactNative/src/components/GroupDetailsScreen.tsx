@@ -30,6 +30,7 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
 
   const {authData, loading,signIn,signOut} = useContext(AuthContext);
   const [apidata, setApidata] = useState<any | null>(null);
+  navigation.setOptions({title:route.params.groupName})
 
   useEffect(() => {
     if(authData){
@@ -47,6 +48,7 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
     <>
         {/* <Text style={{color:'white',fontSize:25}}>THIS IS GROUP {route.params.groupName} DETAILS SCREEN</Text> */}
             {/* <Button title='test navigation' onPress={()=>navigation.navigate('GroupDetailsScreen')}></Button> */}
+        
         <FlatList
           data={apidata}
           // keyExtractor={item => item.user_group_id.toString()}
@@ -59,10 +61,12 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
 }
 
 const styles = StyleSheet.create({
-  list:{
-    // marginHorizontal:10,
-     
+  groupHeader:{
+    fontSize:25
   },
+  list:{
+
+  }
     
 })
 

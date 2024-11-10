@@ -14,10 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -113,6 +110,20 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		}
 	}
 
+	public Set<Users> getFriends(String email){
+		Set<Users> friendSet=null;
+		Users user = userRepository.findByEmail(email);
+		if(user!=null){
+			friendSet= user.getFriends();
+
+		}
+		else{
+			System.out.println("######## user not found");
+		}
+
+		return friendSet;
+	}
+
 	@Transactional
 	public void addExpense(AddExpenseRequest addExpenseRequest){
 		System.out.println("########## Inside add expense of service");
@@ -165,6 +176,12 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		expenseReadResponse.setDescription(expenses.getDescription());
 		expenseReadResponse.setSplitType(expenses.getSplitType());
 		expenseReadResponse.setUsergroup_name(expenses.getUserGroup().getUser_group_name());
+		expenseReadResponse.setExpenseId(expenses.getExpense_id());
+		expenseReadResponse.setGroupId(expenses.getUserGroup().getUser_group_id());
+		expenseReadResponse.setCreated_by(expenses.getCreatedBy());
+		expenseReadResponse.setCreation_date(expenses.getCreatedOn());
+		expenseReadResponse.setUpdated_by(expenses.getUpdatedBy());
+		expenseReadResponse.setUpdated_on(expenses.getUpdatedOn());
 		List<Users> participants = expenses.getParticipants();
 		System.out.println("######## participants list is: " + participants);
 		expenseReadResponse.setParticipantList(participants);
