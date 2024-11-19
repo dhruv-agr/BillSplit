@@ -1,14 +1,30 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { string } from 'yup';
 
 type RootStackParamList = {
   GroupScreen: undefined;
   GroupDetailsScreen:{groupName:string, groupId:number};
+  GroupStackScreen:undefined;
+  AddGroupForm:undefined;
+  AddExpenseForm:undefined;
 };
+
+type RootTabParamList ={
+  Groups:NavigatorScreenParams<RootStackParamList>;
+  Friends:undefined;
+  Activity:undefined;
+  Profile:undefined;
+}
 
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'GroupScreen'>;
 type PropsGroupDetailsScreen = NativeStackScreenProps<RootStackParamList, 'GroupDetailsScreen'>;
+type PropsGroupStackScreen = NativeStackScreenProps<RootStackParamList, 'GroupStackScreen'>;
+type PropsAddGroupForm = NativeStackScreenProps<RootStackParamList, 'AddGroupForm'>;
+export type PropsAddExpenseForm = NativeStackScreenProps<RootStackParamList,'AddExpenseForm'>;
+
 
 type GroupsType = {
   user_group_name: string
@@ -20,6 +36,18 @@ type GroupsType = {
 type GroupDetailResponse = {
   expenses_list:Array<GroupDetailType>
   payments_list:Array<PaymentDetailType>
+}
+
+export type FriendDetail={
+  
+  email: string,
+  firstname: string,
+  lastname: string
+  
+}
+
+export type GetFriendsResponse = {
+  friends_list:Array<FriendDetail>
 }
 
 type GroupDetailType = {
@@ -50,6 +78,41 @@ type PaymentDetailType = {
   updated_on: string
 }
 
+export type CreateGroupResponse = {
+  "createdOn":Date,
+  "createdBy":string,
+  "updatedOn":Date,
+  "updatedBy":string,
+  "user_group_id":452,
+  "user_group_name":string
 
-export type {RootStackParamList,Props,PropsGroupDetailsScreen,GroupsType,GroupDetailResponse};
+}
+
+export type UserType = {
+  "email": string,
+  "firstname": string,
+  "lastname": string
+}
+
+
+export type CreateExpenseResponse = {
+  "expenseId":number,
+  "createdOn":Date,
+  "createdBy":string,
+  "updatedOn":Date,
+  "updatedBy":string,
+  "groupId":number,
+  "usergroup_name":string,
+  "description":string,
+  "amount":number,
+  "splitType":string,
+  "participantList":Array<UserType>,
+  "paidByList":Array<UserType>,
+  "owes":Map<string,string>
+
+
+
+}
+
+export type {RootStackParamList,Props,PropsGroupDetailsScreen,PropsGroupStackScreen,PropsAddGroupForm,GroupsType,GroupDetailResponse,RootTabParamList};
 // export default Props;

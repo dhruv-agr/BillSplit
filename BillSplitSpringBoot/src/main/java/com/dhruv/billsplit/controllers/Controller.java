@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 @RestController
 public class Controller {
@@ -48,8 +49,6 @@ public class Controller {
 	@Autowired
 	AllExpenseReadResponse allExpensesReadResponse;
 
-	@Autowired
-	CreateGroupResponse createGroupResponse;
 
 	@GetMapping("/user")
 	public UserReadResponse getUser(@RequestBody UserReadRequest userReadRequest) {
@@ -116,7 +115,7 @@ public class Controller {
 	
 	@PostMapping(value="/group",produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public CreateGroupResponse createGroup(@RequestBody UserGroup userGroup) {
+	public ResponseEntity<UserGroup> createGroup(@RequestBody UserGroup userGroup) {
 		System.out.println("############ group post endpoint called");
 		UserGroup createdGroup = groupsRepository.save(userGroup);
 		AddGroupUsersRequest addGroupUsersRequest = new AddGroupUsersRequest();
@@ -124,8 +123,8 @@ public class Controller {
 		set.add(createdGroup.getCreatedBy());
 		addGroupUsersRequest.setGroup_id(createdGroup.getUser_group_id());
 		addGroupUsersRequest.setEmailIds(set);
-		myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
-		return createGroupResponse;
+		createdGroup = myUserDetailsSevice.addGroupUser(addGroupUsersRequest);
+		return ResponseEntity.ok(createdGroup);
 
 
 	}
@@ -147,6 +146,17 @@ public class Controller {
 
 		myUserDetailsSevice.addFriend(addFriendRequest);
 
+
+	}
+
+	@GetMapping("/friends")
+	@ResponseBody
+	public Set<Users> getFriends(@RequestParam String email) {
+		System.out.println("################ get friends get endpoint called");
+		System.out.println("########### received email is: " + email);
+
+		Set<Users> friendSet = myUserDetailsSevice.getFriends(email);
+		return friendSet;
 
 	}
 

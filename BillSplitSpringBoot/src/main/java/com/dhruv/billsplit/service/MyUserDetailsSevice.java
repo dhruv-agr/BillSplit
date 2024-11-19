@@ -14,10 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -68,7 +65,8 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		return user;
 	}
 
-	public void addGroupUser(AddGroupUsersRequest addGroupUsersRequest){
+	public UserGroup addGroupUser(AddGroupUsersRequest addGroupUsersRequest){
+		UserGroup userGroup=null;
 		System.out.println("###### user set in request is: " + addGroupUsersRequest.getEmailIds().toString());
 		System.out.println("###### user set to list : " + addGroupUsersRequest.getEmailIds().stream().toList());
 
@@ -86,13 +84,14 @@ public class MyUserDetailsSevice implements UserDetailsService {
 
 		if(allUsersPresent && usersList.size()!=0){
 			System.out.println("########### All users in request found in db");
-			UserGroup userGroup = groupsRepository.findById(addGroupUsersRequest.getGroup_id()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "UserGroup not found."));
+			userGroup = groupsRepository.findById(addGroupUsersRequest.getGroup_id()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "UserGroup not found."));
 			userGroup.setUsers(usersList);
-			groupsRepository.save(userGroup);
+			userGroup=groupsRepository.save(userGroup);
 		}
 		else{
 			System.out.println("############### Some users in request not present in system");
 		}
+		return userGroup;
 	}
 
 	@Transactional
@@ -109,6 +108,20 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		else{
 			System.out.println("######## One or both users not found");
 		}
+	}
+
+	public Set<Users> getFriends(String email){
+		Set<Users> friendSet=null;
+		Users user = userRepository.findByEmail(email);
+		if(user!=null){
+			friendSet= user.getFriends();
+
+		}
+		else{
+			System.out.println("######## user not found");
+		}
+
+		return friendSet;
 	}
 
 	@Transactional
@@ -163,6 +176,12 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		expenseReadResponse.setDescription(expenses.getDescription());
 		expenseReadResponse.setSplitType(expenses.getSplitType());
 		expenseReadResponse.setUsergroup_name(expenses.getUserGroup().getUser_group_name());
+		expenseReadResponse.setExpenseId(expenses.getExpense_id());
+		expenseReadResponse.setGroupId(expenses.getUserGroup().getUser_group_id());
+		expenseReadResponse.setCreated_by(expenses.getCreatedBy());
+		expenseReadResponse.setCreation_date(expenses.getCreatedOn());
+		expenseReadResponse.setUpdated_by(expenses.getUpdatedBy());
+		expenseReadResponse.setUpdated_on(expenses.getUpdatedOn());
 		List<Users> participants = expenses.getParticipants();
 		System.out.println("######## participants list is: " + participants);
 		expenseReadResponse.setParticipantList(participants);
@@ -196,9 +215,9 @@ public class MyUserDetailsSevice implements UserDetailsService {
 		System.out.println("######### list of payments in read group detail is: " + payments);
 		allExpenseReadResponse.setExpensesReadResponseList(expenses);
 
-		System.out.println("##### first expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(0).getExpenseId());
-		System.out.println("##### second expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(1).getExpenseId());
-		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
+//		System.out.println("##### first expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(0).getExpenseId());
+//		System.out.println("##### second expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(1).getExpenseId());
+//		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
 
 		allExpenseReadResponse.setPaymentsListReadResponseList(payments);
 		return allExpenseReadResponse;
