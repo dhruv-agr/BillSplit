@@ -6,6 +6,7 @@ import type {GroupDetailResponse,PropsGroupDetailsScreen} from './Types';
 import { AuthContext } from '../contexts/Auth';
 import getSecured from '../requests/getSecured';
 import GroupDetailItem from './GroupDetailItem';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 
 
 // type GroupDetailsScreenProps = {
@@ -32,13 +33,17 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
   const [apidata, setApidata] = useState<any | null>(null);
   navigation.setOptions({title:route.params.groupName})
 
+  // let memberList:any=[];
+
   useEffect(() => {
     if(authData){
       getSecured(authData,url+route.params.groupId).then((res) => {
         console.log('response of groupDetail call is: ' +JSON.stringify(res));
         groupDetails=res as GroupDetailResponse;
         groupDetailsList = [...groupDetails.expenses_list, ...groupDetails.payments_list];
-        console.log('concat list is : ' + groupDetailsList);
+        // memberList = [...groupDetails.members_list];
+        console.log('concat list is : ' + groupDetailsList[0].creation_date);
+        // console.log('group member list is: ' + memberList);
         groupDetailsList.sort(compare);
         setApidata(groupDetailsList);
       });
@@ -55,6 +60,13 @@ const GroupDetailsScreen = ({navigation,route}:PropsGroupDetailsScreen) => {
           renderItem={({item}) => <GroupDetailItem obj={item}/>}
           contentContainerStyle={styles.list}
         />
+
+        <Pressable onPress={()=>{
+          console.log('add expense button clicked');
+          navigation.navigate('AddExpenseForm',{memberList:apidata});
+          }}>
+          <Text style={styles.groupHeader}>Add Expense</Text>
+        </Pressable>
     </>
     
   )

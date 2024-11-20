@@ -7,6 +7,8 @@ import { AuthContext } from '../contexts/Auth';
 
 
 const HOST_IP = Config.HOST_IP;
+// const HOST_IP = "http://10.0.0.2:8080/";
+
 
 
 let response:Response;
@@ -19,6 +21,7 @@ async function getSecured<T>(authData:AuthData, url:string):Promise<T>{
       myHeaders.append('Authorization', "Bearer " +authData.password);
     }
     let requestUrl = HOST_IP + url;
+    console.log("request url is : " + requestUrl);
     let options : any = {};
 
     if(myHeaders){

@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, TouchableOpacity,GestureResponderEvent} from 'react-native';
+import {Alert, Modal,FlatList, StyleSheet, Text, Pressable, View, TextInput, TouchableOpacity,GestureResponderEvent} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import { AuthContext } from '../contexts/Auth';
 import postSecured from '../requests/postSecured';
 import type {PropsAddExpenseForm,CreateExpenseResponse} from '../components/Types';
+import GroupMemberListItem from '../components/GroupMemberListItem';
 
 
 
@@ -15,9 +16,10 @@ const userSchema = Yup.object({
   description: Yup.string().min(4, 'Min of 4 characters').required('Required'),
   amount: Yup.number().min(1,'Min of 1 number').required('Required'),
   split_type:Yup.string().required('Required'),
-  paidBy:Yup.array(Yup.string())
+  paidBy:Yup.array(Yup.string()),
+  participants:Yup.array(Yup.string())
 });
-let apiData={
+let submitExpenseFormData={
   
     description : "",
     amount: "",
@@ -31,9 +33,13 @@ let apiData={
 
 
 
-const AddExpenseForm = ({navigation}:PropsAddExpenseForm) => {
-const {authData, loading,signIn,signOut} = useContext(AuthContext);
+const AddExpenseForm = ({navigation,route}:PropsAddExpenseForm) => {
+// const AddExpenseForm = ({obj}:any) => {
 
+const {authData, loading,signIn,signOut} = useContext(AuthContext);
+  
+  let memberList = route.params.memberList;
+  console.log("user list received in expense form is: " +route.params.memberList[0]);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Formik
@@ -48,14 +54,14 @@ const {authData, loading,signIn,signOut} = useContext(AuthContext);
 
             console.log(values);
 
-            apiData.description = values.description;
-            apiData.amount = values.amount;
-            apiData.split_type = values.split_type;
-            apiData.participants = values.participants;
+            submitExpenseFormData.description = values.description;
+            submitExpenseFormData.amount = values.amount;
+            submitExpenseFormData.split_type = values.split_type;
+            submitExpenseFormData.participants = values.participants;
             
             // api call to create expense
             if(authData){
-              postSecured(authData,'expense',apiData).then((res)=>{
+              postSecured(authData,'expense',submitExpenseFormData).then((res)=>{
                 let jsonRes = JSON.stringify(res);
                 console.log( "res of expense creation is: " + jsonRes);
                 if(jsonRes!= undefined || jsonRes != null){
@@ -94,14 +100,36 @@ const {authData, loading,signIn,signOut} = useContext(AuthContext);
                 </View>
                 <TextInput
                   style={styles.inputStyle}
+                  value={values.amount}
+                  onChangeText={handleChange('amount')}
+                  
+                />
+
+                {/* <FlatList
+                  data={memberList}
+                  keyExtractor={item => item.email.toString()}
+                  //data={[mydata]}
+                  renderItem={({item}) => <Pressable onPress={()=>navigation.navigate('GroupDetailsScreen', {groupName:item.user_group_name, groupId:item.user_group_id})}>
+                    <GroupMemberListItem username={item.user_group_name} /></Pressable>}
+                  // contentContainerStyle={styles.list}
+                /> */}
+
+                <TextInput
+                  style={styles.inputStyle}
+                  // value={values.participants}
+                  onChangeText={handleChange('participants')}
+                  
+                />
+
+                <TextInput
+                  style={styles.inputStyle}
                   value={values.description}
                   onChangeText={handleChange('description')}
                   
-                  />
+                />
+
               </View>
-
-
-              
+          
             
               <View style={styles.formActions}>
                 <TouchableOpacity

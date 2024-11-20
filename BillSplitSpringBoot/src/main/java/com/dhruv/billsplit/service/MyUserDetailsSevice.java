@@ -220,12 +220,18 @@ public class MyUserDetailsSevice implements UserDetailsService {
 //		System.out.println("##### third expense : " + allExpenseReadResponse.getExpensesReadResponseList().get(2).getExpenseId());
 
 		allExpenseReadResponse.setPaymentsListReadResponseList(payments);
+
+		System.out.println("######### list of users in read group detail is: " + userGroup.getUsers().toString());
+
+		allExpenseReadResponse.setGroupMembers(userGroup.getUsers());
 		return allExpenseReadResponse;
 
 	}
 
 		public void addPayment(AddPaymentRequest addPaymentRequest){
 		Payments payments = new Payments();
+
+		// TODO if email id is not in system it still proceeds to save the payment in the db
 		Users payer = userRepository.findByEmail(addPaymentRequest.getPayer());
 		Users recipient = userRepository.findByEmail(addPaymentRequest.getRecipient());
 		UserGroup userGroup = groupsRepository.findById(addPaymentRequest.getGroupId()).orElseThrow();

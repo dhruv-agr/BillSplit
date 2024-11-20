@@ -7,7 +7,14 @@ type RootStackParamList = {
   GroupDetailsScreen:{groupName:string, groupId:number};
   GroupStackScreen:undefined;
   AddGroupForm:undefined;
-  AddExpenseForm:undefined;
+  AddExpenseForm:{memberList:[
+    {
+      email:string,
+      firstname:string,
+      lastname:string
+    }
+    
+  ]};
 };
 
 type RootTabParamList ={
@@ -36,6 +43,7 @@ type GroupsType = {
 type GroupDetailResponse = {
   expenses_list:Array<GroupDetailType>
   payments_list:Array<PaymentDetailType>
+  members_list:Array<UserType>
 }
 
 export type FriendDetail={

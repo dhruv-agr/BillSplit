@@ -18,6 +18,20 @@ public class AllExpenseReadResponse {
     @JsonProperty("payments_list")
     private List<PaymentsListReadResponse> paymentsListReadResponseList;
 
+    @JsonProperty("group_members")
+    private List<Users> groupMembers;
+
+
+    public List<Users> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<Users> groupMembers) {
+        this.groupMembers = groupMembers;
+    }
+
+
+
 //    @JsonIgnore
 //    @Autowired
 //    ExpenseReadResponse expenseReadResponse;
@@ -34,6 +48,8 @@ public class AllExpenseReadResponse {
             paymentsListReadResponse.setGroupId(payment.getUserGroup().getUser_group_id());
             paymentsListReadResponse.setPaymentId(payment.getPaymentId());
             paymentsListReadResponse.setAmount(payment.getAmount());
+
+            System.out.println("############# payer object from payment table: " + payment.getPayer());
             paymentsListReadResponse.setPayer(payment.getPayer().getFirstname());
             paymentsListReadResponse.setRecipient(payment.getRecipient().getFirstname());
             paymentsListReadResponse.setCreated_by(payment.getCreatedBy());

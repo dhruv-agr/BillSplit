@@ -52,16 +52,16 @@ function  GroupStackScreen({navigation}:PropsGroupStackScreen){
     
       <GroupStack.Screen name="GroupDetailsScreen" component={GroupDetailsScreen}  options={{
     
-      headerRight: () => (
+      // headerRight: () => (
 
-        <Pressable onPress={()=>{
-          console.log('add expense button clicked');
-          navigation.navigate('AddExpenseForm');
-          }}>
-          <IconAnt name='addusergroup' size ={25} />
-        </Pressable>
+        // <Pressable onPress={()=>{
+        //   console.log('add expense button clicked');
+        //   navigation.navigate('AddExpenseForm');
+        //   }}>
+        //   <IconAnt name='addusergroup' size ={25} />
+        // </Pressable>
         
-      ),
+      // ),
       }}/>
       <GroupStack.Screen name="AddGroupForm" component={AddGroupForm}/>
       <GroupStack.Screen name="AddExpenseForm" component={AddExpenseForm}/>

@@ -74,4 +74,11 @@ public class UserGroup extends AuditorEntity{
 		this.user_group_name = user_group_name;
 	}
 
+
+	@Override
+	public String toString() {
+		return "UserGroup{" +
+				"users=" + users +
+				'}';
+	}
 }
